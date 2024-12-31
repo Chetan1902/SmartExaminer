@@ -1,1 +1,1 @@
-# SmartExaminer
+SmartExaminer is an online examination system built using Django, Python, and MySQL. It provides an efficient platform for conducting timed assessments. Admin users can seamlessly add, manage, and update questions, while students can participate in tests within a controlled time frame. This project ensures a smooth and user-friendly experience for both administrators and test-takers, making it ideal for educational institutions and training organizations.
