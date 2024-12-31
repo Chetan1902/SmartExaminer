@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script>
+        function changes(x){
+            x.style.background="pink"
+            x.style.color="black"
+        }
+        function myfunction(y){
+            y.style.background="white"
+            y.style.color="black"
+        }
+        function validate(){
+                var msg;
+                var size=document.myform.password.value.length;
+                var spanelement=document.getElementById("message");
+                if(size<=4){
+                    spanelement.style.color="red"
+                    msg="poor"
+                }
+                else if(size>4 && size<=6){
+                    spanelement.style.color="orange"
+                    msg="average"
+                }
+                else{
+                    spanelement.style.color="green"
+                    msg="Strong "
+                }
+                document.getElementById("message").innerHTML=msg
+            }
+    </script>
+    <style>
+        {%load static%}
+        body {
+            background-image: url('/static/background/signup.jpg'); /* Correct path to the background image */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the image */
+            font-family: Arial, sans-serif;
+            margin: 5px;
+            margin-top: 5px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Sets the height of the viewport */
+            background-color: #f3f3f3; /* Fallback color in case the image doesn't load */
+        }
+        
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 25px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Sign Up</h1>
+
+  
+       
+        <form method="POST" enctype="multipart/form-data" name="myform">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Enter username" required onmouseover="changes(this)" onmouseout="myfunction(this)">
+            <input type="email" name="email" placeholder="Enter email" required onmouseover="changes(this)" onmouseout="myfunction(this)">
+            <input type="password" name="password" placeholder="Enter password" required onmouseover="changes(this)" onmouseout="myfunction(this)" onkeyup="validate()">
+            <span id="message" ></span>
+            <input type="password" name="confirm_password" placeholder="Confirm password" required onmouseover="changes(this)" onmouseout="myfunction(this)" onkeyup="validate()">
+            <input type="file" name="photo" required ><br>
+            
+            
+
+
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+           {% endif %}
+
+       
+            <input type="submit" value="Sign Up" formaction="/singup/">
+        </form>
+
+        <p>Already have an account? <a href="/login/">Login</a></p>
+    </div>
+</body>
+</html>

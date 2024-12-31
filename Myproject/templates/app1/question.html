@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Question</title>
+    <style>
+        /* General body styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6A11CB, #2575FC); /* Gradient background */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Form container styling */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            padding: 80px;
+            width: 500px;
+            text-align: left;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Heading for questions */
+        .form-container h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: center;
+        }
+
+        /* Styled text inputs */
+        input[type="text"],
+        input[type="hidden"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #bd1d1d;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Specific styling for the qtext input */
+        input[name="qtext"] {
+            width: 100%; /* Use full available width */
+            height: 100px; /* Larger height for qtext */
+            background-color: transparent; /* Transparent background */
+            font-size: 1.1em; /* Larger text size */
+            padding: 15px;
+            color: #555;
+            border: 1px solid #bd1d1d;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: block;
+            word-wrap: break-word; /* Ensure long text wraps properly */
+        }
+
+        /* Styling for radio buttons and labels */
+        input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            padding: 10px 0;
+            font-size: 1em;
+            cursor: pointer;
+            color: #3c39e4;
+        }
+
+        span {
+            font-size: 1em;
+            font-weight: bold;
+            color: black;
+        }
+
+        /* Buttons styling */
+        input[type="submit"] {
+            display: inline-block;
+            width: 100px;
+            padding: 10px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6A11CB;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #501FA8;
+            transform: scale(1.05);
+        }
+
+        input[type="submit"]:disabled {
+            background-color: rgb(146, 146, 16);
+            color: #444;
+            cursor: not-allowed;
+        }
+
+        /* Keyframe animation for fadeIn */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+<script>
+    count=30
+    x=setInterval(()=>
+    {
+        count=count-1
+        var minute=Math.floor(count/60)
+        var second=count-(minute*60)
+        document.getElementById('s1').innerHTML=minute+':'+second
+        if (count === 2) 
+        {
+            alert("Time Left")
+        }
+        if (count === 0)
+        {
+            clearInterval(x)
+            const isLastQuestion = "{{ is_last_question }}"
+            if (isLastQuestion === "True")
+            {
+                location.href = '/examapp/endexam/'
+            } else
+            {
+                location.href = '/examapp/next/'
+            }
+        }
+    },1000)
+</script>
+</head>
+<body>
+    <!-- Form container -->
+    <div class="form-container">
+        <h4 style="color:red">Time Remainig  for this question:<span id="s1"></span><h4>
+        <h2>Exam Question</h2>
+        <form method="get">
+            {% csrf_token %}
+
+            <label>Question Number:</label>
+            <input type="text" id="number" name="qno" value="{{questionno}}" readonly> 
+
+            <label>Question Text:</label>
+            <input type="text" name="qtext" value="{{question.qtext}}" readonly>
+
+            <input type="hidden" name="answer" value="{{question.answer}}" readonly>
+
+            <label>
+                <input type="radio" name="op" value="{{ question.op1 }}" {% if check == question.op1 %}checked{% endif %}>
+                <span>{{ question.op1 }}</span>
+            </label>
+
+            <label>
+                <input type="radio" name="op" value="{{ question.op2 }}" {% if check == question.op2 %}checked{% endif %}>
+                <span>{{ question.op2 }}</span>
+            </label>
+
+            <label>
+                <input type="radio" name="op" value="{{ question.op3 }}" {% if check == question.op3 %}checked{% endif %}>
+                <span>{{ question.op3 }}</span>
+            </label>
+
+            <label>
+                <input type="radio" name="op" value="{{ question.op4 }}" {% if check == question.op4 %}checked{% endif %}>
+                <span>{{ question.op4 }}</span>
+            </label>
+
+            <input type="hidden" name="subject" value="{{question.subject}}"><br><br>
+
+            <input type="submit" value="Back" formaction="/examapp/back/" {% if disable %} disabled style="background-color: beige; color: black;" {% endif %}>
+            <input type="submit" formaction="/examapp/next/" value="Next" {% if disable %}disabled style="background-color: beige; color: black;" {% endif %}>
+            <input type="submit" value="End Exam" formaction="/examapp/endexam/">
+        </form>
+    </div>
+</body>
+</html>

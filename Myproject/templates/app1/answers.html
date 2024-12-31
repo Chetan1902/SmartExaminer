@@ -1,0 +1,92 @@
+<style>
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Headers */
+h2 {
+    color: #b11111;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.8em;
+}
+
+/* Results Table */
+.results-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.results-table th, .results-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.results-table thead {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.results-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.results-table tbody tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Correct and Status Columns */
+.correct {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.status {
+    font-weight: bold;
+}
+
+/* Add specific status color coding if required */
+.status.correct {
+    color: #5cb85c;
+}
+
+.status.incorrect {
+    color: #d9534f;
+}
+
+
+</style>
+
+
+<h2> Result Data </h2>
+<table class="results-table">
+    <thead>
+        <tr>
+            <th>Question No</th>
+            <th>Question</th>
+            <th>Correct Answer</th>
+            <th>Your Answer</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in correct_wrong %}
+        <tr>
+            <td>{{ i.qno }}</td>
+            <td>{{ i.qtext }}</td>
+            <td class="correct">{{ i.answer }}</td>
+            <td >{{ i.wrong_ans }}</td>
+            <td class="status">{{ i.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

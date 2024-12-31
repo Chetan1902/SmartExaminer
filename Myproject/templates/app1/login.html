@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script>
+        function changes(x){
+            x.style.background="pink"
+            x.style.color="blue"
+        }
+        function myfunction(y){
+            y.style.background="black"
+            y.style.color="White"
+        }
+        function validate(){
+            var msg;
+            var size=document.myform.password.value.length;
+            var spanelement=document.getElementById("message");
+            if(size<=4){
+                spanelement.style.color="red"
+                msg="poor"
+            }
+            else if(size>4 && size<=6){
+                spanelement.style.color="orange"
+                msg="average"
+            }
+            else{
+                spanelement.style.color="green"
+                msg="Strong "
+            }
+            document.getElementById("message").innerHTML=msg
+        }
+    </script>
+    <style>
+        {% load static%}
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #6A11CB, #2575FC); /* Gradient background */
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        
+        form {
+            background-color: #262626; /* Dark form background */
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #aaa; /* Lighter placeholder */
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6A11CB; /* Purple button color */
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #501FA8; /* Darker purple on hover */
+        }
+        
+        p {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            color: #ddd;
+        }
+        
+        a {
+            color: #6A11CB;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Add a toggle effect section for login/signup buttons */
+        .toggle {
+            text-align: center;
+            margin-top: -20px;
+        }
+        
+        .toggle button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle button:hover {
+            color: #6A11CB;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <div>
+        <h1>Login</h1>
+        <div class="toggle">
+            {% comment %} <button>Login</button>
+            <button>Sign up</button> {% endcomment %}
+        </div>
+        <form method="post" name="myform">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Enter username" required onmouseover="changes(this)" onmouseout="myfunction(this)">
+            <input type="password" name="password" placeholder="Enter password" required onmouseover="changes(this)" onmouseout="myfunction(this)" onkeyup="validate()">
+            {% comment %} <span id="message" >{{messages}}</span> {% endcomment %}
+            <h3>{{message}}</h3>
+            <input type="submit" value="Login" formaction="/login/">
+        </form>
+        <p>Don't have an account? <a href="/singup/">Sign Up</a></p>
+    </div>
+    
+</body>
+</html>

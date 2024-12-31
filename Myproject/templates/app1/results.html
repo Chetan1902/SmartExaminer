@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Results</title>
+    <style>
+        {%load static%}
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        /* Headers */
+        .head {
+            color: red;
+            text-align: center;
+            font-size: 2.5em;
+            margin: 0;
+            padding: 20px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+        
+        h2 {
+            color: #333;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        
+        /* Summary */
+        .summary {
+            text-align: center;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        h4 {
+            color: #555;
+            font-weight: normal;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+        
+        /* Button */
+        input[type="submit"] {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        .feedback-Need Improvement{
+            color: red;
+        }
+        
+        .feedback-Good {
+            color: orange;
+        }
+        
+        .feedback-Excellent{
+            color: green;
+        }
+        .result{
+            color: green;
+            font-size: 40;
+        }
+        
+
+        
+        
+        
+    </style>
+</head>
+<body>
+<form>
+<div class="container">
+    <h1 class="head">Exam over !!</h1>
+    <h1 class="result">Results</h1>
+    <div class="summary">
+        <h2 class="feedback"{% if feedback == 'Needs Improvement' %}feedback-Need Improvement{% elif feedback == 'Good' %}feedback-Good{% elif feedback == 'Excellent' %}feedback-Excellent{% endif %}>
+            {{ feedback }}
+        </h2>
+        <h4>{{ username }}'s Score: {{percentage}} %   Correct Answer: {{ score }} out of {{total_question}} </h4>
+    </div>
+
+    <input type="submit" value="view Answer" formaction="/examapp/view_answers/">
+</div>
+</form>
+</body>
+</html>

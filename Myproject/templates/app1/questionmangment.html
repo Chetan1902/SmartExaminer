@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Management</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+        input, select {
+            padding: 8px;
+            font-size: 14px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .action-buttons button {
+            width: 45%;
+        }
+        button[type="submit"][name="action"][value="delete"] {
+            background-color: #f44336; 
+            color: white;
+            border: none;
+            padding: 10px 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40%;
+        }
+        
+        button[type="submit"][name="action"][value="delete"]:hover {
+            background-color: #e53935;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin - Question Management</h1>
+        <form  method="POST" onsubmit="return confirm('Do you want to continue ?')">
+            {% csrf_token %}
+            <!-- Question Number -->
+            <div class="form-group">
+                <input type="text" name="qno"  placeholder="Question Number" value="{{question.qno}}" required>
+            </div>
+            <!-- Question Text -->
+            <div class="form-group">
+                <input type="text" name="qtext" placeholder="Question" value="{{question.qtext}}" required>
+            </div>
+            <!-- Subject -->
+            <div class="form-group">
+                <input type="text"  name="subject" placeholder="Subject" value="{{question.subject}}" required>
+            </div>
+            <!-- Answer -->
+            <div class="form-group">
+                <input type="text" name="answer" placeholder="Correct Answer" value="{{question.answer}}" required>
+            </div>
+            <input type="text" id="op1" name="op1" placeholder="Option 1" value="{{question.op1}}" required>
+            <input type="text" id="op2" name="op2"  placeholder="Option 2" value="{{question.op2}}" required>
+            <input type="text" id="op3" name="op3"  placeholder="Option 3" value="{{question.op3}}" required>
+            <input type="text" id="op4" name="op4"  placeholder="Option 4" value="{{question.op4}}" required>
+            <button type="submit"  value="add" formaction="/examapp/addquestions/">Add Question</button>
+            <button type="submit" value="update" formaction="/examapp/updatequestions/">Update Question</button>
+            <button type="submit" name="action" value="view" formaction="/examapp/viewquestions/">View Question</button>
+            <button type="submit" name="action" value="delete" formaction="/examapp/deletequestions/">Delete Question</button>
+            {% comment %} <button formaction="/examapp/backtodashboard/">Back</button> {% endcomment %}
+        </form>
+        </span style="color:red;font-size:30px;">{{message}}</span>
+        {% if qno %}
+            <div class="question-details">
+                <h3>Question Details</h3>
+                <p>Question Number: {{ qno }}</p>
+                <p>Question Text: {{ qtext }}</p>
+                <p>Answer: {{ answer }}</p>
+                <p>Subject: {{ subject }}</p>
+                <p>Option 1: {{ op1 }}</p>
+                <p>Option 2: {{ op2 }}</p>
+                <p>Option 3: {{ op3 }}</p>
+                <p>Option 4: {{ op4 }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>

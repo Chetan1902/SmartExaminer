@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        /* Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #6A11CB, #2575FC); /* Gradient Background */
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        /* Centered Container */
+        .container {
+            background-color: #ffffff;
+            width: 400px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Soft Shadow */
+            text-align: center;
+            color: #333; /* Text color */
+        }
+
+        /* Heading Styles */
+        .container h1 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .container p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons Styling */
+        .btn {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px; /* Rounded buttons */
+            background-color: #6A11CB;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #501FA8;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Start Exam Button Style */
+        .btn.secondary {
+            background-color: #2575FC;
+        }
+
+        .btn.secondary:hover {
+            background-color: #1b5bbf;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Welcome to Exam Cart</h1>
+        <p>Solving the test and gain the knowledge.....</p>
+        <!-- Buttons -->
+        <a href="/login" class="btn">Login</a>
+        <a href="/singup" class="btn">Signup</a>
+        <br>
+    </div>
+</body>
+</html>
